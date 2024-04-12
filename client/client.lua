@@ -19,11 +19,11 @@ function useGizmo(handle)
     toggleNuiFrame(true)
 
     lib.showTextUI(
-        ('Current Mode: %s  \n'):format("translate") ..
-        '[W]    - Translate Mode  \n' ..
-        '[R]    - Rotate Mode  \n' ..
-        '[LALT] - Place On Ground  \n' ..
-        '[Esc]  - Done Editing  \n'
+        ('Modo: %s  \n'):format("translate") ..
+        '[W]    - Modo XYZ  \n' ..
+        '[R]    - Modo Rotação  \n' ..
+        '[LALT] - Colocar no chão  \n' ..
+        '[Esc]  - Salvar  \n'
     )
 
     while usingGizmo do
@@ -75,11 +75,11 @@ end)
 
 RegisterNUICallback('swapMode', function(data, cb)
     lib.showTextUI(
-        ('Current Mode: %s  \n'):format(data.mode) ..
-        '[W]    - Translate Mode  \n' ..
-        '[R]    - Rotate Mode  \n' ..
-        '[LALT] - Place On Ground  \n' ..
-        '[Esc]  - Done Editing  \n'
+        ('Modo: %s  \n'):format(data.mode) ..
+        '[W]    - Modo XYZ  \n' ..
+        '[R]    - Modo Rotação  \n' ..
+        '[LALT] - Colocar no chão  \n' ..
+        '[Esc]  - Salvar  \n'
     )
     cb('ok')
 end)
