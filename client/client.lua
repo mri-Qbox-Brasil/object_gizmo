@@ -1,4 +1,5 @@
 local usingGizmo = false
+local focus = false
 
 local function toggleNuiFrame(bool)
     usingGizmo = bool
@@ -20,9 +21,9 @@ function useGizmo(handle)
 
     lib.showTextUI(
         ('Modo: %s  \n'):format("translate") ..
-        '[W]    - Modo XYZ  \n' ..
-        '[R]    - Modo Rotação  \n' ..
-        '[LALT] - Colocar no chão  \n' ..
+        '[R]    - Trocar Modos  \n' ..
+        '[C] - Colocar no chão  \n' ..
+        '[CAPSLOCK]    - Alternar mouse  \n' ..
         '[Esc]  - Salvar  \n'
     )
 
@@ -35,6 +36,9 @@ function useGizmo(handle)
                 rotation = GetFinalRenderedCamRot()
             }
         })
+        if IsDisabledControlJustReleased(0, 137) or IsControlJustReleased(0, 137) then
+            SetNuiFocus(true, true)
+        end
         Wait(0)
     end
 
@@ -62,8 +66,14 @@ RegisterNUICallback('placeOnGround', function(data, cb)
     cb('ok')
 end)
 
+RegisterNUICallback('nuiFocus', function(data, cb)
+        SetNuiFocus(false, false)
+    cb('ok')
+end)
+
 RegisterNUICallback('finishEdit', function(data, cb)
     toggleNuiFrame(false)
+    focus = false
     SendNUIMessage({
         action = 'setGizmoEntity',
         data = {
@@ -76,9 +86,9 @@ end)
 RegisterNUICallback('swapMode', function(data, cb)
     lib.showTextUI(
         ('Modo: %s  \n'):format(data.mode) ..
-        '[W]    - Modo XYZ  \n' ..
-        '[R]    - Modo Rotação  \n' ..
-        '[LALT] - Colocar no chão  \n' ..
+        '[R]    - Trocar Modos  \n' ..
+        '[C] - Colocar no chão  \n' ..
+        '[CAPSLOCK]    - Alternar mouse  \n' ..
         '[Esc]  - Salvar  \n'
     )
     cb('ok')

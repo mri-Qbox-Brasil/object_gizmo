@@ -49,15 +49,23 @@ export const TransformComponent = () => {
   useEffect(() => {
     const keyHandler = (e: KeyboardEvent) => {
       switch (e.code) {
+        // case "KeyR":
+        //   if (editorMode == "rotate") return;
+        //   setEditorMode("rotate");
+        //   fetchNui("swapMode", { mode: "Rotate" });
+        //   break;
+        // case "KeyW":
+        //   if (editorMode == "translate") return;
+        //   setEditorMode("translate");
+        //   fetchNui("swapMode", { mode: "Translate" });
+        //   break;
         case "KeyR":
-          if (editorMode == "rotate") return;
-          setEditorMode("rotate");
-          fetchNui("swapMode", { mode: "Rotate" });
+          const newMode = editorMode === "rotate" ? "translate" : "rotate";
+          setEditorMode(newMode);
+          fetchNui("swapMode", { mode: newMode.charAt(0).toUpperCase() + newMode.slice(1) });
           break;
-        case "KeyW":
-          if (editorMode == "translate") return;
-          setEditorMode("translate");
-          fetchNui("swapMode", { mode: "Translate" });
+        case "ControlLeft":
+          fetchNui("nuiFocus");
           break;
         case "Escape":
           fetchNui("finishEdit");
